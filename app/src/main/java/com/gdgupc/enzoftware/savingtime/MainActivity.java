@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -51,9 +52,10 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(aboutET.getText().toString().equals("") || amountET.getText().toString().equals("")){
-                    Snackbar.make(view, "You can't enter empty info", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                if(amountET.getText().toString().isEmpty() || aboutET.getText().toString().isEmpty()){
+                    //Snackbar.make(view, "You can't enter empty info", Snackbar.LENGTH_LONG)
+                     //       .setAction("Action", null).show();
+                    Toast.makeText(getApplicationContext(),"You can't enter empty info",Toast.LENGTH_SHORT).show();
                 }else{
                     if(modeSwitch.isChecked()){
                         int amount = Integer.parseInt(amountET.getText().toString());
@@ -81,6 +83,9 @@ public class MainActivity extends AppCompatActivity {
                     stateMode.setText("You ' re in saving mode now  :)");
                 }
             }
+
+            //TODO : new functions in all the code
+
         });
     }
 
@@ -100,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Toast.makeText(this, "enzoftware love's you <3", Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);
