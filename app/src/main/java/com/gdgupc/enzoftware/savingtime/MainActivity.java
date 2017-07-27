@@ -16,14 +16,17 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     ProgressBar incomePB , expensePB;
-    TextView incomeTV , expenseTV;
+    TextView incomeTV , expenseTV, stateMode;
     EditText aboutET , amountET;
     Switch modeSwitch;
     int incomeProgress = 60;
     int expenseProgress = 30;
+    ArrayList<itemOperator> itemList = new ArrayList<itemOperator>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         aboutET = (EditText) findViewById(R.id.aboutEditText);
         amountET = (EditText) findViewById(R.id.amountEditText);
         modeSwitch = (Switch) findViewById(R.id.switchMode);
+        stateMode = (TextView) findViewById(R.id.stateMode);
 
         incomePB.setProgress(incomeProgress);
         expensePB.setProgress(expenseProgress);
@@ -53,18 +57,29 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     if(modeSwitch.isChecked()){
                         int amount = Integer.parseInt(amountET.getText().toString());
-                        expenseProgress += amount;
+                        incomeProgress += amount;
                     }else{
                         int amount = Integer.parseInt(amountET.getText().toString());
-                        incomeProgress += amount;
+                        expenseProgress += amount;
                     }
                 }
+
+                itemList.add(new itemOperator(Integer.parseInt(amountET.getText().toString()) , aboutET.getText().toString() , modeSwitch.isChecked()));
 
                 incomePB.setProgress(incomeProgress);
                 expensePB.setProgress(expenseProgress);
 
                 incomeTV.setText("Income     => "+String.valueOf(incomeProgress));
                 expenseTV.setText("Expense     => "+String.valueOf(expenseProgress));
+
+                aboutET.setText("");
+                amountET.setText("");
+
+                if(incomeProgress <= expenseProgress){
+                    stateMode.setText("You need to return to save mode :(");
+                }else{
+                    stateMode.setText("You ' re in saving mode now  :)");
+                }
             }
         });
     }
