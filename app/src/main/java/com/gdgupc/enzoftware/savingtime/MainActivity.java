@@ -8,8 +8,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebView;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Switch;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
+
+    ProgressBar incomePB , expensePB;
+    TextView incomeTV , expenseTV;
+    EditText aboutET , amountET;
+    Switch modeSwitch;
+    int incomeProgress = 60;
+    int expenseProgress = 30;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,12 +32,39 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        incomePB = (ProgressBar) findViewById(R.id.progressBarIncome);
+        expensePB = (ProgressBar) findViewById(R.id.progressBarExpense);
+        incomeTV = (TextView) findViewById(R.id.incomeTextView);
+        expenseTV = (TextView) findViewById(R.id.expenseTextView);
+        aboutET = (EditText) findViewById(R.id.aboutEditText);
+        amountET = (EditText) findViewById(R.id.amountEditText);
+        modeSwitch = (Switch) findViewById(R.id.switchMode);
+
+        incomePB.setProgress(incomeProgress);
+        expensePB.setProgress(expenseProgress);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if(aboutET.getText().toString().equals("") || amountET.getText().toString().equals("")){
+                    Snackbar.make(view, "You can't enter empty info", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }else{
+                    if(modeSwitch.isChecked()){
+                        int amount = Integer.parseInt(amountET.getText().toString());
+                        expenseProgress += amount;
+                    }else{
+                        int amount = Integer.parseInt(amountET.getText().toString());
+                        incomeProgress += amount;
+                    }
+                }
+
+                incomePB.setProgress(incomeProgress);
+                expensePB.setProgress(expenseProgress);
+
+                incomeTV.setText("Income     => "+String.valueOf(incomeProgress));
+                expenseTV.setText("Expense     => "+String.valueOf(expenseProgress));
             }
         });
     }

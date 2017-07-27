@@ -35,6 +35,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/incomeTextView"
                     android:text="Income        => 60"/>
 
 
@@ -48,6 +49,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/expenseTextView"
                     android:text="Expense       => 30 "/>
 
                 <ProgressBar
@@ -108,12 +110,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/amountEditText"
+                        android:inputType="number"
                         android:hint="amount(numbers)"/>
                 </android.support.design.widget.TextInputLayout>
 
                 <Switch
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/switchMode"
                     android:text="If is income , check"/>
 
             </LinearLayout>
