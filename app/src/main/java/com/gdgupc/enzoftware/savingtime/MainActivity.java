@@ -3,6 +3,7 @@ package com.gdgupc.enzoftware.savingtime;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -23,11 +24,11 @@ public class MainActivity extends AppCompatActivity {
 
     ProgressBar incomePB , expensePB;
     TextView incomeTV , expenseTV, stateMode;
-    EditText aboutET , amountET;
+    TextInputEditText aboutET , amountET;
     Switch modeSwitch;
     int incomeProgress = 60;
     int expenseProgress = 30;
-    ArrayList<itemOperator> itemList = new ArrayList<itemOperator>();
+    ArrayList<itemOperator> itemList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
         expensePB = (ProgressBar) findViewById(R.id.progressBarExpense);
         incomeTV = (TextView) findViewById(R.id.incomeTextView);
         expenseTV = (TextView) findViewById(R.id.expenseTextView);
-        aboutET = (EditText) findViewById(R.id.aboutEditText);
-        amountET = (EditText) findViewById(R.id.amountEditText);
+        aboutET = (TextInputEditText) findViewById(R.id.aboutEditText);
+        amountET = (TextInputEditText) findViewById(R.id.amountEditText);
         modeSwitch = (Switch) findViewById(R.id.switchMode);
         stateMode = (TextView) findViewById(R.id.stateMode);
 
@@ -52,21 +53,25 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(amountET.getText().toString().isEmpty() || aboutET.getText().toString().isEmpty()){
-                    //Snackbar.make(view, "You can't enter empty info", Snackbar.LENGTH_LONG)
-                     //       .setAction("Action", null).show();
-                    Toast.makeText(getApplicationContext(),"You can't enter empty info",Toast.LENGTH_SHORT).show();
+                String amountString = amountET.getText().toString();
+                String aboutString = aboutET.getText().toString();
+
+                if(amountString.isEmpty()|| aboutString.isEmpty() ){
+                    Snackbar.make(view, "You can't enter empty info", Snackbar.LENGTH_LONG)
+                           .setAction("Action", null).show();
                 }else{
                     if(modeSwitch.isChecked()){
-                        int amount = Integer.parseInt(amountET.getText().toString());
+                        int amount = Integer.parseInt(amountString);
                         incomeProgress += amount;
                     }else{
-                        int amount = Integer.parseInt(amountET.getText().toString());
+                        int amount = Integer.parseInt(amountString);
                         expenseProgress += amount;
                     }
+
+                    itemList.add(new itemOperator(Integer.parseInt(amountString) , aboutString , modeSwitch.isChecked()));
                 }
 
-                itemList.add(new itemOperator(Integer.parseInt(amountET.getText().toString()) , aboutET.getText().toString() , modeSwitch.isChecked()));
+
 
                 incomePB.setProgress(incomeProgress);
                 expensePB.setProgress(expenseProgress);
