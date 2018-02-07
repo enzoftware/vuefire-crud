@@ -3,7 +3,7 @@
     <div>
       <label> Name: </label>
       <input type="text" v-model="name"/>
-      <button @click="submitName()">Add</button>
+      <button class="button is-primary" @click="submitName()">Add</button>
     </div>
     <div>
       <ul>
