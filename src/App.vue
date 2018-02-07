@@ -1,17 +1,29 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }} , {{name}}</h1>
+    <div>
+      <label> Name: </label>
+      <input type="text" v-model="name"/>
+      <button @click="submitName()">Add</button>
+    </div>
   </div>
 </template>
 
 <script>
+
+import { namesRef } from './firebase'
+
+
 export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
-      name : 'enzoftware'
+      name: 'Paul'
+    }  
+  },
+  methods:{
+    submitName(){
+      namesRef.push({name : this.name 
+                    ,edit : false});
     }
   }
 }
@@ -23,25 +35,12 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #3d85ce;
   margin-top: 60px;
 }
 
-h1, h2 {
+h1{
   font-weight: normal;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
 </style>
