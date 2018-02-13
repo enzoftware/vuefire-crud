@@ -1,22 +1,28 @@
 <template>
-  <div id="app">
+  <div id="app" class="container">
+    <h1 align="center" class="title is-1" >FIREBASE + VUE CRUD</h1>
     <div>
-      <label> Name: </label>
-      <input type="text" v-model="name"/>
-      <button class="button is-primary" @click="submitName()">Add</button>
+      <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Enter a name" v-model="name">
+        </div>
+        <p class="help">Only names :)</p>
+      </div>
+      <a class="button is-primary" @click="submitName()">Add</a>
     </div>
     <div>
       <ul>
         <li v-for="personName of names" v-bind:key="personName['.key']">
           <div v-if="!personName.edit">
             <p>{{ personName.name }} </p>
-            <button @click="removePerson(personName['.key'])">Delete</button>
-            <button @click="editPerson(personName['.key'])">Edit</button>
+            <button class="button is-danger" @click="removePerson(personName['.key'])">Delete</button>
+            <button class="button is-info" @click="editPerson(personName['.key'])">Edit</button>
           </div>
           <div v-else>
             <input type="text" v-model="personName.name">
-            <button @click="saveEdit(personName)">Save</button>
-            <button @click="cancelEdit(personName['.key'])">Cancel</button>
+            <a class="button is-success" @click="saveEdit(personName)">Save</a>
+            <a class="button is-warning" @click="cancelEdit(personName['.key'])">Cancel</a>
           </div>
         </li>
       </ul>
@@ -85,6 +91,10 @@ export default {
 
 h1 {
   font-weight: normal;
+}
+
+div{
+  margin: 20px;
 }
 
 

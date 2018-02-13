@@ -1,6 +1,7 @@
 # vuefire-crud
 
 > This is a simple contact app build with vue + firebase
+![gif](art/vuefire.gif)
 
 ## Build Setup
 
